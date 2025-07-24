@@ -64,6 +64,8 @@ endif()
 
 if(CMAKE_SYSTEM_NAME MATCHES "Windows")
     MESSAGE(STATUS "current platform: Windows")
+    set(CMAKE_QT_PATH $ENV{QT_DIR})
+
     set(CMAKE_CXX_FLAGS   "${CMAKE_CXX_FLAGS} /W4 -DSKYEDITOR_WIN32")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG -D_DEBUG /MDd")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG /MD")
@@ -73,6 +75,17 @@ endif()
 
 if(APPLE)
     MESSAGE(STATUS "current platform: macOS")
+    set(CMAKE_OSX_ARCHITECTURES "x86_64")
+    
+    # 对于 x86_64 交叉编译，优先使用环境变量 QT_DIR，否则使用 Intel Homebrew 路径
+    if(DEFINED ENV{QT_DIR})
+        set(CMAKE_QT_PATH $ENV{QT_DIR})
+        message(STATUS "Using QT_DIR from environment: ${CMAKE_QT_PATH}")
+    else()
+        # 默认使用 Intel Homebrew 路径 (x86_64)
+        set(CMAKE_QT_PATH "/usr/local/Cellar/qt@5/5.15.16_2/lib/cmake/Qt5")
+        message(STATUS "Using default x86_64 Qt path: ${CMAKE_QT_PATH}")
+    endif()
     set(CMAKE_CXX_FLAGS   "${CMAKE_CXX_FLAGS} -g -Wall -DDSKYEDITOR_MAC") # -g 在可执行程序中包含标准调试信息 -Wall 打印出gcc提供的警告信息  -fdeclspec 开启__declspec
     set(CMAKE_CXX_FLAGS_DEBUG   "${CMAKE_CXX_FLAGS_DEBUG} -O0 -DDEBUG -D_DEBUG")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2 -DNDEBUG" )
@@ -97,10 +110,10 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_PREFIX_PATH $ENV{QT_DIR})
+set(CMAKE_PREFIX_PATH ${CMAKE_QT_PATH})
 set(CMAKE_INSTALL_PREFIX ${ROOT_DIR})
 
-MESSAGE(STATUS "QT_DIR = $ENV{QT_DIR}")
+MESSAGE(STATUS "QT_DIR = ${CMAKE_QT_PATH}")
 
 find_package(QT NAMES Qt5 COMPONENTS Core Quick Multimedia Widgets QuickWidgets LinguistTools REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick Multimedia Widgets QuickWidgets LinguistTools SerialPort WebSockets Xml REQUIRED)

@@ -16,3 +16,4 @@ BuildConfig.h
 CMakeCache.txt
 *.xcodeproj/
 *cmake_install.cmake
+build/
