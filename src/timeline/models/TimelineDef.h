@@ -33,7 +33,13 @@ enum TrackRole {
     RoleAvgSpeed,                    //平均速度
     RoleHasInputDevice,              //配置了输入器
     RoleKeyFrameTimes,                //关键帧时间点
-    RoleGroupInfos                //片段上的分组信息，主要是电商模板需要使用的
+    RoleGroupInfos,               //片段上的分组信息，主要是电商模板需要使用的
+
+    // AI 生成相关角色
+    RoleAIGenerationState = Qt::UserRole + 100,  // AI 生成状态
+    RoleAIGenerationProgress,                     // AI 生成进度 (0.0-1.0)
+    RoleAIGenerationError,                        // AI 生成错误信息
+    RoleAIGenerationParams                        // AI 生成参数 (JSON)
 
 };
 
@@ -116,7 +122,10 @@ enum ResourceType {
     TransitionResource = 6,
     FilterResource = 7,
     MoreResource = 8,
-    OverlayResource = 9
+    OverlayResource = 9,
+    AIImageResource = 10,      // AI 生成的图片
+    AIVideoResource = 11,      // AI 生成的视频
+    AITTSResource = 12         // AI 生成的语音
 };
 
 
@@ -133,7 +142,10 @@ static constexpr struct {
     {ResourceType::TransitionResource, "Transition"},
     {ResourceType::FilterResource, "Filter"},
     {ResourceType::MoreResource, "More"},
-    {ResourceType::OverlayResource, "Overlay"}
+    {ResourceType::OverlayResource, "Overlay"},
+    {ResourceType::AIImageResource, "AIImage"},
+    {ResourceType::AIVideoResource, "AIVideo"},
+    {ResourceType::AITTSResource, "AITTS"}
 };
 
 static const char* nameFromResourceType(ResourceType type) {

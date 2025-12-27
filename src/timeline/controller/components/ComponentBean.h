@@ -47,7 +47,9 @@ static QMap<QString, QString> m_componentDict = {{"Slider", "SliderProperty.qml"
                                                  {"ParticleColor","ParticleColorProperty.qml"},
                                                  {"SaveOfEffect","SaveOfEffectProperty.qml"},
                                                  {"ParticleConfigParser","ParticleFileConfigProperty.qml"},
-                                                 {"Empty", "EmptyProperty.qml"}};
+                                                 {"Empty", "EmptyProperty.qml"},
+                                                 // AI 生成相关组件
+                                                 {"AIGenerationControls", "AIGenerationControlsProperty.qml"}};
 
 static QMap<QString, int> m_componentEstimateHeight = {{"Slider", 40},
 //                                                 {"Sticker", "AnimationListProperty.qml"},
@@ -69,7 +71,9 @@ static QMap<QString, int> m_componentEstimateHeight = {{"Slider", 40},
                                                        {"ParticleValue",120},
                                                        {"ParticleConfigParser",40},
                                                  {"SaveOfEffect",30},
-                                                 {"ColorSelector", 80}};
+                                                 {"ColorSelector", 80},
+                                                 // AI 生成相关组件
+                                                 {"AIGenerationControls", 120}};
 
 class ParamSettingInfo {
 public:

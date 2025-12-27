@@ -116,7 +116,7 @@ set(CMAKE_INSTALL_PREFIX ${ROOT_DIR})
 MESSAGE(STATUS "QT_DIR = ${CMAKE_QT_PATH}")
 
 find_package(QT NAMES Qt5 COMPONENTS Core Quick Multimedia Widgets QuickWidgets LinguistTools REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick Multimedia Widgets QuickWidgets LinguistTools SerialPort WebSockets Xml REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick Multimedia Widgets QuickWidgets LinguistTools SerialPort WebSockets Xml Network REQUIRED)
 
 get_target_property(_qmake_executable Qt5::qmake IMPORTED_LOCATION)
 get_filename_component(_qt_bin_dir "${_qmake_executable}" DIRECTORY)
@@ -340,6 +340,7 @@ target_link_libraries(VOO
     Qt${QT_VERSION_MAJOR}::SerialPort
     Qt${QT_VERSION_MAJOR}::WebSockets
     Qt${QT_VERSION_MAJOR}::Xml
+    Qt${QT_VERSION_MAJOR}::Network
     ${SKYMEDIA}
     ${OF_CORE}
     ${OF_EFFECT}
