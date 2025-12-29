@@ -4,6 +4,7 @@
 #include "skyresourcebean.h"
 #include "timelinetrack.h"
 #include "videoclip.h"
+#include "ai/aiimageclip.h"
 #include <QDebug>
 #include <limits.h>
 #include <math.h>
@@ -92,10 +93,19 @@ BaseClip *TimelineTrack::makeClip(const SkyResourceBean &bean, SkyClip *skyClip)
         clip = new ImageClip(bean, skyClip);
     } else if (m_resourceType == VideoResource) {
         clip = new VideoClip(bean, skyClip);
+    } else if (m_resourceType == AIImageResource) {
+        clip = new AIImageClip(bean, skyClip);
+    } else if (m_resourceType == AIVideoResource) {
+        clip = new AIImageClip(bean, skyClip);  // TODO: Create AIVideoClip class
+    } else if (m_resourceType == AITTSResource) {
+        clip = new AudioClip(bean, skyClip);  // TODO: Create AITTSClip class
     } else if (bean.isEffectResource()) {
         clip = new EffectClip(bean, skyClip);
     }
-    QObject::connect(clip, &BaseClip::clipDataChanged, this, &TimelineTrack::onClipDataChanged);
+
+    if (clip) {
+        QObject::connect(clip, &BaseClip::clipDataChanged, this, &TimelineTrack::onClipDataChanged);
+    }
     return clip;
 }
 

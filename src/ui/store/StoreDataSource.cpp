@@ -130,6 +130,12 @@ void StoreDataSource::selectTopCategory(QString cate) {
     m_allResources.clear();
     selectSubCategory(0); // normal select first sub category
 
+    if (cate == "AI") {
+        // AI category shows local AI images only
+        emit showAIImageLocalList();
+        return;
+    }
+
     loadTopCategoryData(cate);
     if (cate == "AUDIO") {
         loadTopCategoryData("MUSIC");
@@ -487,6 +493,15 @@ bool StoreDataSource::openNewMore(QString filePath) {
     }
     SharedPref::instance()->setJsonArray("cache_more_local", ja_more);
     return true;
+}
+
+void StoreDataSource::addAIImageClip(int trackIndex, double time) {
+    // 创建AI图片资源Bean
+    // 参数: path, name, type, thumb, rewindPath, resId, gltf
+    SkyResourceBean item("", "AI Image", AIImageResource, "", "", "AI_IMAGE_CLIP", false);
+
+    // 添加到时间轴
+    SEProject::current()->dom()->timelineController()->addResource(item, trackIndex, time);
 }
 
 void StoreDataSource::addLocalAudioResource(QVariantList list, int trackIndex, double time) {

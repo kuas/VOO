@@ -2,7 +2,13 @@
   "permissions": {
     "allow": [
       "Bash(ls:*)",
-      "Bash(make:*)"
+      "Bash(make:*)",
+      "Bash(cmake:*)",
+      "Bash(mkdir:*)",
+      "Bash(grep:*)",
+      "Bash(nm:*)",
+      "Bash(rm:*)",
+      "Bash(cat:*)"
     ]
   }
 }

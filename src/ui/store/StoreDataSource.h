@@ -26,6 +26,7 @@ signals:
     void audioListChanged(LocalResourceListModel *data);
     void showMoreLocalList();
     void moreListChanged(LocalResourceListModel *data);
+    void showAIImageLocalList();
 
     void toastContentChanged(QString msg, int during);
 
@@ -53,6 +54,9 @@ public slots:
     void deleteLocalVideoResource(QVariantList list);
     void deleteLocalAudioResource(QVariantList list);
     void deleteLocalMoreResource(QVariantList list);
+
+    // AI Clip
+    void addAIImageClip(int trackIndex = -1, double time = -1);
 
     void addNewEffect(QUrl dirPath);
 

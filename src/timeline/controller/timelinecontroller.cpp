@@ -232,7 +232,12 @@ void TimelineController::addResource(SkyResourceBean &item,
                                      double time,
                                      const SkyTimeRange &timeRange,
                                      const SkyVariant &params) {
-    if (!QFile(item.entryPath()).exists()) {
+    // AI resources don't need local files
+    bool isAIResource = (item.resouceType() == AIImageResource ||
+                         item.resouceType() == AIVideoResource ||
+                         item.resouceType() == AITTSResource);
+
+    if (!isAIResource && !QFile(item.entryPath()).exists()) {
         qWarning() << "add Resource Failed  File Not Exist! " << item.toString();
         showToast(tr("Add resource failed, File path is not exist!"));
         return;

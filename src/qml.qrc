@@ -43,6 +43,7 @@
         <file>ui/store/StoreVideoItem.qml</file>
         <file>ui/store/StoreResourceItem.qml</file>
         <file>ui/store/StoreAudioItem.qml</file>
+        <file>ui/store/StoreAIImageItem.qml</file>
         <file>ui/property/TransitionProperty.qml</file>
         <file>ui/store/Store.js</file>
         <file>ui/property/NameProperty.qml</file>
@@ -70,6 +71,7 @@
         <file>ui/timeline/AsyncProcess.qml</file>
         <file>ui/timeline/AiClip.qml</file>
         <file>ui/property/AnimationListProperty.qml</file>
+        <file>ui/property/AIImageComponent.qml</file>
         <file>ui/property/ImageProperty.qml</file>
         <file>ui/dialog/UserInfoDialog.qml</file>
         <file>ui/property/PropertySingleLayout.qml</file>

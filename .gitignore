@@ -17,3 +17,4 @@ CMakeCache.txt
 *.xcodeproj/
 *cmake_install.cmake
 build/
+build_test/

@@ -29,6 +29,7 @@
 #include <timeline/controller/components/VolumeComponent.h>
 #include <timeline/controller/components/VolumeFadeComponent.h>
 #include <timeline/controller/components/WordComponent.h>
+#include <timeline/controller/components/AIImageComponent.h>
 #include <timeline/models/asyncprocessmodel.h>
 #include <timeline/qrcode/QrCodeController.h>
 #include <timeline/widget/AudioWavWidget.h>
@@ -77,6 +78,7 @@ void QmlUtilities::registerCommonTypes() {
     qmlRegisterType<VideoComponent>("VideoComponent", 1, 0, "VideoComponent"); //
     qmlRegisterType<AudioComponent>("AudioComponent", 1, 0, "AudioComponent");
     qmlRegisterType<WordComponent>("WordComponent", 1, 0, "WordComponent");
+    qmlRegisterType<AIImageComponent>("AIImageComponent", 1, 0, "AIImageComponent");
     qmlRegisterType<VolumeComponent>("VolumeComponent", 1, 0, "VolumeComponent");
     qmlRegisterType<NameComponent>("NameComponent", 1, 0, "NameComponent");
     qmlRegisterType<TransitionComponent>("TransitionComponent", 1, 0, "TransitionComponent");

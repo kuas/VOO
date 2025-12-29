@@ -43,7 +43,9 @@ SkyResourceBean::SkyResourceBean( QString path, QString name, ResourceType type,
     }
     qDebug() << "SkyResourceBean entryPath:" << m_entryPath << " resourceDir:" << m_resourceDir << " path:" << path <<" isAbsolute:"<<info.isAbsolute();
 
-    if (isEffectResource()) {
+    // AI resources and effects don't need SkyResource from file
+    bool isAIResource = (type == AIImageResource || type == AIVideoResource || type == AITTSResource);
+    if (isEffectResource() || isAIResource) {
         m_skyResouce = SkyResource::makeGap();
     } else {
         QString resourcePath = m_entryPath;
@@ -169,9 +171,11 @@ SkyResourceBean SkyResourceBean::restoreSkyVariant(SkyObject* obj){
 }
 
 TrackType SkyResourceBean::trackType() const {
-    if (m_resourceType == ImageResource || m_resourceType == VideoResource || m_resourceType == TransitionResource) {
+    if (m_resourceType == ImageResource || m_resourceType == VideoResource ||
+        m_resourceType == TransitionResource || m_resourceType == AIImageResource ||
+        m_resourceType == AIVideoResource) {
         return VideoTrack;
-    } else if (m_resourceType == AudioResource) {
+    } else if (m_resourceType == AudioResource || m_resourceType == AITTSResource) {
         return AudioTrack;
     } else {
         return EffectTrack;
@@ -186,11 +190,11 @@ SkyTimeRange SkyResourceBean::defaultTimeRange() const{
             duration = DEF_EFFECT_CLIP_DURING / 1000.0;
         }
         return SkyTimeRange(0, duration);
-    } else if (m_resourceType == ImageResource) {
+    } else if (m_resourceType == ImageResource || m_resourceType == AIImageResource) {
         return SkyTimeRange(0, DEF_IMAGE_CLIP_DURING);
-    } else if (m_resourceType == AudioResource) {
+    } else if (m_resourceType == AudioResource || m_resourceType == AITTSResource) {
         return SkyTimeRange(0, m_skyResouce.getAudioDuration());
-    } else if (m_resourceType == VideoResource) {
+    } else if (m_resourceType == VideoResource || m_resourceType == AIVideoResource) {
         return SkyTimeRange(0, m_skyResouce.getVideoDuration());
     } else {
         return SkyTimeRange(0, DEF_IMAGE_CLIP_DURING);

@@ -25,7 +25,10 @@ void TransformComponent::onBindQml(QJsonObject &doc) {
     qDebug() << "TransformComponent::bindQml m_ready:" << m_ready;
     m_ready =  true;
 
-    auto isOverlayRes = m_curEffect->skyResource().resouceType() == OverlayResource;
+    auto isOverlayRes = false;
+    if (m_curEffect != nullptr) {
+        isOverlayRes = m_curEffect->skyResource().resouceType() == OverlayResource;
+    }
 
     if (!isOverlayRes) {
         sendOfMessage("{\"id\":99}");
@@ -231,10 +234,15 @@ void TransformComponent::updateSourceChanged() {
     SkyTimeline *timeline = SEProject::current()->dom()->timeline();
     if (timeline && m_curClip) {
         double width = 100,height = 100;
-        auto isOverlayRes = m_curEffect->skyResource().resouceType() == OverlayResource;
+        auto isOverlayRes = false;
+        double scale = 1.0;
+
+        if (m_curEffect != nullptr) {
+            isOverlayRes = m_curEffect->skyResource().resouceType() == OverlayResource;
+            scale = m_curEffect->getOfParamValue("0:Scale",1.0).toDouble();
+        }
 
         SkyVideoParams params = timeline->getVideoParams();
-        auto scale = m_curEffect->getOfParamValue("0:Scale",1.0).toDouble();
         if(isOverlayRes){
             auto videoStream = m_curClip->resourceBean().skyResouce().firstVideoStream();
             width = videoStream.width * scale;

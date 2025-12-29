@@ -1,0 +1,18 @@
+{
+  "duration": 5000,
+  "paramList": [
+    {
+      "id": 1,
+      "uiType": "AIImageComponent",
+      "paramTitle": "AI Image Generation",
+      "group": "ai_generation",
+      "groupTitle": "AI Generation",
+      "groupLayout": "Column"
+    }
+  ],
+  "translations": {
+    "zh": {
+      "AI Image Generation": "AI 图片生成"
+    }
+  }
+}

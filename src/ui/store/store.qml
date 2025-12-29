@@ -77,6 +77,10 @@ Rectangle {
             moreLocalList.visible = datasource.localMoreDataCount() > 1
             moreLocalList.model = data
         }
+        onShowAIImageLocalList: {
+            hidAllPanel()
+            aiImageLocalContainer.visible = true
+        }
         onShowResourceList: {
             hidAllPanel()
             resourceList.visible = true
@@ -99,6 +103,7 @@ Rectangle {
             videoLocalContainer.visible = false
             audioLocalContainer.visible = false
             moreLocalContainer.visible = false
+            aiImageLocalContainer.visible = false
             resourceList.visible = false
         }
     }
@@ -174,6 +179,13 @@ Rectangle {
                     hoveredImageSource: "qrc:/image/assets/store_more_hovered.png"
                     cate: "MORE"
                     txt: qsTr("More")
+                }
+                StoreMenuBar {
+                    id: storeCategoryAI
+                    imageSource: "qrc:/image/assets/store_more.png"
+                    hoveredImageSource: "qrc:/image/assets/store_more_hovered.png"
+                    cate: "AI"
+                    txt: qsTr("AI")
                 }
             }
         }
@@ -1035,6 +1047,67 @@ Rectangle {
                     }
                     var page = component.createObject(this)
                     page.show()
+                }
+            }
+        }
+    }
+
+    Rectangle {
+        id: aiImageLocalContainer
+        anchors.margins: 8
+        anchors.top: topCategoryBottoLine.bottom
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.left: categorylistViewRightLine.right
+        clip: true
+        visible: false
+        color: "#15171C"
+        property bool aiImageItemHover: false
+
+        Rectangle {
+            id: addAIClipButton
+            anchors.centerIn: parent
+            width: 240
+            height: 120
+            color: "#00000000"
+
+            Image {
+                width: parent.width
+                height: parent.height
+                source: aiImageLocalContainer.aiImageItemHover ? "qrc:/image/assets/video_add_border_hover.png" : "qrc:/image/assets/video_add_border.png"
+            }
+            Image {
+                width: 48
+                height: 48
+                source: aiImageLocalContainer.aiImageItemHover ? "qrc:/image/assets/video_add_hover.png" : "qrc:/image/assets/video_add.png"
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                    top: parent.top
+                    topMargin: 20
+                }
+            }
+            Text {
+                color: aiImageLocalContainer.aiImageItemHover ? "#ffffff" : "#BFBFBF"
+                text: qsTr("Add AI Image Clip")
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                    bottom: parent.bottom
+                    bottomMargin: 20
+                }
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+
+                onEntered: {
+                    aiImageLocalContainer.aiImageItemHover = true
+                }
+                onExited: {
+                    aiImageLocalContainer.aiImageItemHover = false
+                }
+                onClicked: {
+                    datasource.addAIImageClip()
                 }
             }
         }
